@@ -1,9 +1,14 @@
+## Index
+## =====
+##
+## Main html page with all sound links.
+
 import std/[strutils]
 from unicode import capitalize
 import websitegenerator
 import ./styles, ./helpers, ../sounds/sounds
 
-var html*: HtmlDocument = newHtmlDocument("index.html")
+var html*: HtmlDocument = newHtmlDocument("index.html") ## Index html document
 
 html.embedStyle(css)
 

@@ -1,3 +1,8 @@
+## CSS
+## ===
+##
+## Make website look pwetty :3
+
 import websitegenerator
 
 var cssTemplate*: CssStyleSheet = newCssStyleSheet("styles.css")
@@ -12,14 +17,17 @@ proc elem(name: string, attributes: varargs[array[2, string]]): CssElement =
     newCssElement(name, attributes)
 
 proc link(which: string, colour: string|CssColour): CssElement =
+    ## Hyperlinks
     elem("a:" & which,
         ["color", $colour],
         textNoDecoration,
         textTransparentBackground
     )
 
-# Random trickery to let the compiler use css in gcsafe rooms
 proc getCss(): CssStyleSheet =
+    ## This is horrible...
+    ##
+    ## It only exists to make the `css` variable `gcsafe`, as it is a constant.
     result = newCssStyleSheet("styles.css")
     result.add(
         elem("body",
@@ -38,4 +46,4 @@ proc getCss(): CssStyleSheet =
         link("active", Darkmagenta)
     )
 
-const css* = getCss()
+const css* = getCss() ## Global css stylesheet

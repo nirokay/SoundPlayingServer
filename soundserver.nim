@@ -1,12 +1,22 @@
+## Sound Server
+## ============
+##
+## Server binary, that will host the web-page and respond to user requests.
+
 import std/[os, asyncdispatch, asynchttpserver, strutils, strformat]
 import frontend/website, sounds/sounds
 
 const
-    port*: int = 42069
+    port* {.intdefine.}: int = 42069
     htmlPathPrefix*: string = "."
     playingPath*: string = htmlPathPrefix & "/play/"
 
 var server*: AsyncHttpServer = newAsyncHttpServer()
+
+
+# -----------------------------------------------------------------------------
+# Request Types
+# -----------------------------------------------------------------------------
 
 type RequestType* = enum
     HtmlPage, PlaySound
@@ -17,6 +27,7 @@ proc getRequestType(url: string): RequestType =
 
 
 proc displayHtmlPage(path: string, request: Request) {.async.} =
+    ## Interprets server request as displaying html site.
     let headers = newHttpHeaders([("Content-Type", "text/html")])
     var path: string =
         if request.url.path == "/": htmlPathPrefix & "/index.html"
@@ -30,6 +41,7 @@ proc displayHtmlPage(path: string, request: Request) {.async.} =
     return request.respond(Http200, responseHtml, headers)
 
 proc playSound(path: string, request: Request) {.async, gcsafe.} =
+    ## Interprets server request as playing sound.
     let soundFile: string = block:
         var x: string = path
         x.removePrefix(playingPath)
@@ -40,6 +52,11 @@ proc playSound(path: string, request: Request) {.async, gcsafe.} =
 
     playFile(soundFile)
     return request.respond(Http200, SoundSuccess.getResponseAfterSound(soundFile), headers)
+
+
+# -----------------------------------------------------------------------------
+# Server
+# -----------------------------------------------------------------------------
 
 proc processRequest(request: Request) {.async, gcsafe.} =
     # Request path (if empty, redirect to index.html):
@@ -61,7 +78,11 @@ proc runServer*() {.async.} =
         if server.shouldAcceptRequest():
             await server.acceptRequest(processRequest)
         else:
+            echo "Refused request"
             await sleepAsync(500)
+
+
+# Generate html site(s) and run server:
 
 include frontend/website
 when isMainModule: waitFor runServer()

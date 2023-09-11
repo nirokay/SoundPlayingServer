@@ -1,10 +1,13 @@
 ## Frontend builder
+## ================
+##
+## This module builds the html documents used for the front end.
 
 import std/[strformat]
 import websitegenerator
 import ./index, ./styles, ./helpers
 
-# Write to disk:
+# Write index.html to disk:
 html.writeFile()
 
 # Dynamic html for success/failure:
@@ -12,7 +15,9 @@ type SoundPlayingState* = enum
     SoundSuccess, SoundFailure
 
 proc getResponseAfterSound*(state: SoundPlayingState, file: string): string {.gcsafe.} =
-    ## Returns html string
+    ## Returns html string.
+    ##
+    ## Used for responses after playing a sound. These are generated at run-time.
     var
         html: HtmlDocument = newHtmlDocument("soundsuccess.html")
         headerText: string
