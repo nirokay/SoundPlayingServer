@@ -7,6 +7,12 @@ license       = "GPL-3.0-only"
 bin           = @["soundserver"]
 
 
+# Build Frontend html
+
+include "frontend/website.nims"
+
+
 # Dependencies
 
 requires "nim >= 2.0.0"
+requires "websitegenerator"

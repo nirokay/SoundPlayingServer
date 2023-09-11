@@ -1,9 +1,8 @@
 import std/[os, strutils, strformat]
 from unicode import toLower
 
-const mediaplayer*: string = "./mediaplayer.sh"
-
 const
+    mediaplayer*: string = "./mediaplayer.sh"
     soundDirectory*: string = "./sounds/"
     soundFileExtentions*: seq[string] = @[
         "wav", "aif", "mp3", "mid", "aac", "flac", "wma"
@@ -17,6 +16,7 @@ for kind, path in walkDir(soundDirectory):
 
 proc playFile*(filename: string) =
     let file: string = soundDirectory & filename
-    discard execShellCmd(quoteShell(
+    discard execShellCmd(
         &"{mediaplayer} {file}"
-    ))
+    )
+

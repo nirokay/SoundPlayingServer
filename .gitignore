@@ -1,0 +1,11 @@
+# Frontend:
+*.html
+*.css
+
+# Binaries:
+soundserver
+*.exe
+*.out
+
+# Sounds:
+sounds/*.mp3
