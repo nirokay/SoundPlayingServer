@@ -12,6 +12,10 @@ To access the web-interface, open your browser and navitage to `localhost:[port 
 
 If you want other devices in your local network to access the interface, allow incoming requests on the port used by the program. After that connect to the webpage with the local IP of the host.
 
+### Adding sounds
+
+Adding sounds is really simple! Put the audio files into `./sounds/` and that's it!
+
 ## Dependancies
 
 Compiling:
