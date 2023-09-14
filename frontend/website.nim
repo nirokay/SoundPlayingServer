@@ -6,9 +6,12 @@
 import std/[strformat]
 import websitegenerator
 import ./index, ./styles, ./helpers
+export html
 
 # Write index.html to disk:
-html.writeFile()
+proc generateHtmlIndex*() =
+    ## Writes the html file to disk
+    html.writeFile()
 
 # Dynamic html for success/failure:
 type SoundPlayingState* = enum

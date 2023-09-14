@@ -24,6 +24,33 @@ proc link(which: string, colour: string|CssColour): CssElement =
         textTransparentBackground
     )
 
+const
+    centerClass*: CssElement = newCssClass("center",
+        width("90%"),
+        display("block"),
+        textCenter
+    )
+
+    buttonClass*: CssElement = newCssClass("button",
+        ["border", 0.px],
+        backgroundColour("#9187CC"),
+        colour(White),
+        padding(8.px),
+        textCenter,
+        textNoDecoration,
+        display(inlineGrid),
+        ["transition-duration", "0.4s"],
+        ["cursor", "pointer"]
+    )
+
+    buttonHoverClass*: CssElement = newCssClass(buttonClass.name[1 .. ^1] & ":hover",
+        backgroundColour("#BD93F9"),
+        ["border", 10.px],
+        textUnderline,
+        borderColour(rgb(255, 255, 255))
+    )
+
+
 proc getCss(): CssStyleSheet =
     ## This is horrible...
     ##
@@ -43,7 +70,12 @@ proc getCss(): CssStyleSheet =
         link("link", Pink),
         link("visited", Hotpink),
         link("hover", Deeppink),
-        link("active", Darkmagenta)
+        link("active", Darkmagenta),
+
+        centerClass,
+
+        buttonClass,
+        buttonHoverClass
     )
 
 const css* = getCss() ## Global css stylesheet

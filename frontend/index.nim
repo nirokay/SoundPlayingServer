@@ -38,7 +38,19 @@ proc nameShowcase*(file: string): string =
     result = cap.join(" ")
 
 proc newButton(file: string): HtmlElement =
-    p($a("/play/" & file, file.nameShowcase()))
+    #p($a("/play/" & file, file.nameShowcase()))
+    let button: HtmlElement = newElement("button", $small("Play") & $br() & $b(file.nameShowcase()))
+        .attr(attr("type", "submit"))
+        .setClass("button center")
+    result = form(
+        @[button],
+        "/play/" & file
+    ).setClass(centerClass)
 
+var soundButtons: seq[HtmlElement]
 for i in soundList:
-    html.addToBody(newButton(i))
+    soundButtons.add(newButton(i))
+    soundButtons.add(br())
+html.addToBody(`div`(soundButtons).attr(
+    attr("display", "inline-table")
+))

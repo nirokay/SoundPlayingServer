@@ -83,6 +83,6 @@ proc runServer*() {.async.} =
 
 
 # Generate html site(s) and run server:
+generateHtmlIndex()
 
-include frontend/website
 when isMainModule: waitFor runServer()

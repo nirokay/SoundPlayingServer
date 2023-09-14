@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.0"
+version       = "1.0.1"
 author        = "nirokay"
 description   = "A server with an html frontend to play sounds over the network."
 license       = "GPL-3.0-only"
